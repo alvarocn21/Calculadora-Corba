@@ -1,16 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import Calculator.CalcPOA;
 import org.omg.CORBA.ORB;
 
-/**
- *
- * @author Zhaowei
- */
 public class CalcObject extends CalcPOA{
     private ORB orb;
     
@@ -18,11 +8,11 @@ public class CalcObject extends CalcPOA{
         this.orb = orb; 
     }
     
-    /** Calculate
-        * @param type the type of the operation, 1 -> +, 2 -> -, 3 -> *, 4 -> /
-	* @param a first number
-	* @param b second number
-	* @return calculation result
+	/**Calcular
+        * @param escriba el tipo de la operación, 1 -> +, 2 -> -, 3 -> *, 4 -> R, 5 -> /
+	* @param un primer número
+	* @param b segundo número
+	* @return resultado del cálculo
 	*/
     @Override
     public int calculate(int type, int a, int b) {
@@ -36,8 +26,10 @@ public class CalcObject extends CalcPOA{
         }
         else if (type == 3) {
             result = (long) a * b;
-        }
-        else{
+        }else if (type == 4) {
+        	long div = (long) a / b; 
+            result = a - (div * b);
+        }else{
             result = (long) a / b;
         }
         
