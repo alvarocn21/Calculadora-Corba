@@ -1,23 +1,37 @@
 # Calculator-CORBA
-A distributed calculator using CORBA architecture.
-Please see the root folder for the project description.
+Calculadora basica utilizando la arquitectura CORBA
+Las funciones que tiene esta calculador son:
+- Sumar
+- Restar
+- Multiplicar
+- Dividir
+- Obtener el resto de una división
+Las instrucciones para las operaciones son:
+- Primero poner la operacion (+, -, /, *, R)
+- Primer numero 
+- Segundo numero
 
-## How to Compile
-### Server Side
+Ejemplo para sacar el resto:
+R 40 3
+Resultado: 1
+
+
+## Como compilarla
+### Lado del Servidor
 idlj Calc.idl
-javac *.java Calculator/*.java
+javac StartServer.java
 
-### Client Side
-javac *.java Calculator/*.java
+### Lado del Cliente
+javac StartClient.java
 
-## How to Run
-You will need to open three terminal windows.
+## Como correrlo
+Se necesita tener abiertos 3 terminales a la vez
 
-Terminal 1:
+En el primer terminal, en el lado del servidor hay que poner:
 orbd -ORBInitialPort 1050 -ORBInitialHost localhost
 
-Terminal 2:
+En el segundo terminal, en el lado del servidor hay que poner:
 java StartServer -ORBInitialPort 1050 -ORBInitialHost localhost
 
-Terminal 3:
+En el tercer terminal, en el lado del cliente hay que poner:
 java StartClient -ORBInitialPort 1050 -ORBInitialHost localhost
