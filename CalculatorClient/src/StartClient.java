@@ -1,13 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Para cambiar este encabezado de licencia, elija Encabezados de licencia en Propiedades del proyecto.
+* Para cambiar este archivo de plantilla, elija Herramientas | Plantillas
+ * y abra la plantilla en el editor.
  */
 
-/**
- *
- * @author Zhaowei
- */
 import Calculator.*;
 import org.omg.CosNaming.*;
 import org.omg.CORBA.*;
@@ -17,33 +13,33 @@ public class StartClient {
     private static Calc calcObj;
     
     /**
-     * @param args the command line arguments
+     * @param args los argumentos de la línea de comandos
      */
     public static void main(String[] args) {
         try {
-            // create and initialize the ORB
+            // crear e inicializar el ORB
 	    ORB orb = ORB.init(args, null);
             
-            // get the root naming context
+            // Obtener el contexto de nomenclatura raíz
 	    org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
             
-            // Use NamingContextExt instead of NamingContext. This is 
-            // part of the Interoperable naming Service. 
+            // Utilice NamingContextExt en lugar de NamingContext. Esto es 
+            // parte del Servicio de nomenclatura interoperable. 
 	    NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
             
-            // resolve the Object Reference in Naming
+            // resolver la referencia de objeto en nomenclatura
 	    calcObj = (Calc) CalcHelper.narrow(ncRef.resolve_str("Calculator"));
 
             while(true) {
-                // asking for input and read it
+                // Pedir información y leerla
                 System.out.println("------------------------------------------");
-                System.out.println("Enter the parameters in this format [operator][sp][operand1][sp][operand2]."
-                        + "\nFor example: + 1 2");
+                System.out.println("Introduce los parametros en formato [operator][sp][operand1][sp][operand2]."
+                        + "\nPor ejemplo: + 1 2");
                 Scanner c=new Scanner(System.in);
 		String input = c.nextLine();
                 
                 // if the command is exit, request the server to shutdown
-                if (input.toLowerCase().equals("exit")) {
+                if (input.toLowerCase().equals("Salir")) {
                     calcObj.exit();
                     break;
                 }
@@ -51,7 +47,7 @@ public class StartClient {
                 // test the input
                 String[] inputParams = input.split(" ");
                 if (inputParams.length != 3) {
-                    System.out.println("Client Exception: Wrong number of parameters. Try again...");
+                    System.out.println("Excepceion del cliente: Numero de parametro errorneo. Prueba de nuevo...");
                     continue;
                 }
                 int operatorCode;
@@ -69,37 +65,40 @@ public class StartClient {
                     operatorCode = 3;
                 }
                 else if (inputParams[0].equals("/")) {
+                    operatorCode = 5;
+                }
+                else if (inputParams[0].equals("R")) {
                     operatorCode = 4;
                 }
                 else {
-                    System.out.println("Client Exception: Un-recognized operation code. Try again...");
+                    System.out.println("Excepceion del cliente: Operacion no reconocida. Prueba de nuevo...");
                     continue;
                 }
                 
-                // test input operands are integers
+                 //    Los operandos de entrada de prueba son enteros
                 try {
                     operand1 = Integer.parseInt(inputParams[1]);
                     operand2 = Integer.parseInt(inputParams[2]);
                 }
                 catch (NumberFormatException e) {
-                    System.out.println("Client Exception: Wrong number format. Try again...");
+                    System.out.println("Excepceion del cliente: Formato de numeros erroneos. Prueba de nuevo...");
                     continue;
                 }
                 
-                // check if it is divided by zero
+                
                 if (operatorCode == 4 && operand2 == 0) {
-                    System.out.println("Client Exception: Can't be divided by zero. Try again...");
+                    System.out.println("Excepceion del cliente: No se puede dividir entre 0. Prueba de nuevo...");
                     continue;
                 }
                 
-                // do the calculation and return result
+                
 		int result = calcObj.calculate(operatorCode, operand1, operand2);
                 String resultDisplay = "";
                 if (result == Integer.MAX_VALUE) {
-                    resultDisplay = "There might be an Integer Overflow. Please try again...";
+                    resultDisplay = "Excepceion del cliente: Tiene que ser un interger overflow. Prueba de nuevo...";
                 }
                 else if (result == Integer.MIN_VALUE) {
-                    resultDisplay = "There might be an Integer Underflow. Please try again...";
+                    resultDisplay = "Excepceion del cliente: Tiene que ser un integer underflow. Prueba de nuevo...";
                 }
                 else {
                     resultDisplay = String.valueOf(result);
