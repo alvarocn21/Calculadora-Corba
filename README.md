@@ -1,18 +1,21 @@
 # Calculator-CORBA
 Calculadora basica utilizando la arquitectura CORBA
 Las funciones que tiene esta calculador son:
-- Sumar
-- Restar
-- Multiplicar
-- Dividir
-- Obtener el resto de una división
+  - Sumar
+  - Restar
+  - Multiplicar
+  - Dividir
+  - Obtener el resto de una división
+
 Las instrucciones para las operaciones son:
-- Primero poner la operacion (+, -, /, *, R)
-- Primer numero 
-- Segundo numero
+  - Primero poner la operacion (+, -, /, *, R)
+  - Primer numero 
+  - Segundo numero
 
 Ejemplo para sacar el resto:
+
 R 40 3
+
 Resultado: 1
 
 
